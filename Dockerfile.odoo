@@ -1,0 +1,21 @@
+# Use Odoo 16 as the base image
+FROM odoo:16.0
+
+# Set working directory
+WORKDIR /usr/lib/python3/dist-packages/odoo/
+
+# Copy the custom module to the Odoo addons directory
+COPY odoo-allinoneaccessibility /mnt/extra-addons/odoo-allinoneaccessibility
+
+# Set permissions
+RUN chown -R odoo:odoo /mnt/extra-addons/odoo-allinoneaccessibility \
+    && chmod -R 755 /mnt/extra-addons/odoo-allinoneaccessibility
+
+# Set the Odoo configuration to include extra addons
+RUN echo -e "\naddons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons" >> /etc/odoo/odoo.conf
+
+# Expose Odoo default port
+EXPOSE 8069
+
+# Start Odoo
+CMD ["odoo", "-c", "/etc/odoo/odoo.conf"]
