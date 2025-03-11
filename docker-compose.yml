@@ -10,7 +10,7 @@ services:
     ports:
       - "80:8069"
     volumes:
-      - odoo-data:/var/lib/odoo
+      - ./odoo-data:/var/lib/odoo
       - ./odoo-allinoneaccessibility:/mnt/extra-addons/odoo-allinoneaccessibility
     deploy:
       resources:
