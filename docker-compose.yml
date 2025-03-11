@@ -1,9 +1,7 @@
 services:
 
   odoo:
-    build:
-      context: .
-      dockerfile: Dockerfile.odoo
+    image: odoo:16.0
     restart: always
     depends_on:
       - db
@@ -11,7 +9,6 @@ services:
       - "80:8069"
     volumes:
       - ./odoo-data:/var/lib/odoo
-      - ./odoo-allinoneaccessibility:/mnt/extra-addons/odoo-allinoneaccessibility
     deploy:
       resources:
         limits:
