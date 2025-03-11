@@ -8,7 +8,7 @@ COPY --chown=odoo:odoo odoo-allinoneaccessibility /mnt/extra-addons/odoo-allinon
 RUN chmod -R 755 /mnt/extra-addons/odoo-allinoneaccessibility
 
 # Ensure Odoo recognizes extra addons
-RUN echo -e "\naddons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons" >> /etc/odoo/odoo.conf
+RUN sed -i 's|addons_path = .*|addons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons|' /etc/odoo/odoo.conf
 
 # Expose Odoo default port
 EXPOSE 8069
