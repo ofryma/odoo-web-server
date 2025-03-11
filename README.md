@@ -44,6 +44,11 @@ chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 
 ## Install Services
 
+Start docker with the command:
+```
+sudo systemctl start docker
+```
+
 Clone this repo and run the docker compose file.
 
 
