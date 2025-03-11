@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+
+  wiki:
+    image: requarks/wiki:2
+    depends_on:
+      - db
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: odoo
+      DB_PASS: odoo
+      DB_NAME: postgres
+    restart: always
+    ports:
+      - "8080:3000"
+
+  odoo:
+    image: odoo:16.0
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "80:8069"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"  # Limits Odoo to use 1 CPU core
+        reservations:
+          cpus: "0.5"  # Reserves 0.5 CPU cores for Odoo
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    volumes:
+      - ./pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  odoo_data:
+  odoo_custom_addons:
+  db_data:
