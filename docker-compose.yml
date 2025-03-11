@@ -1,7 +1,9 @@
 services:
 
   odoo:
-    image: odoo:16.0
+    build:
+      context: .
+      dockerfile: Dockerfile.odoo
     restart: always
     depends_on:
       - db
