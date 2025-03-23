@@ -52,4 +52,9 @@ sudo systemctl start docker
 Clone this repo and run the docker compose file.
 
 
+## Get SSL Certificate
 
+```
+docker compose up -d
+docker run --rm -v "$(pwd)/certbot/conf:/etc/letsencrypt" -v "$(pwd)/certbot/www:/var/www/certbot" certbot/certbot certonly --webroot -w /var/www/certbot -d tech19ws.moon.com --email tech.19@tech-19.com --agree-tos --no-eff-email
+```
