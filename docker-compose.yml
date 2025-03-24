@@ -13,8 +13,6 @@ services:
           cpus: "1.0"  # Limits Odoo to use 1 CPU core
         reservations:
           cpus: "0.5"  # Reserves 0.5 CPU cores for Odoo
-    networks:
-      - odoo_network
 
 
   db:
@@ -28,9 +26,6 @@ services:
     restart: always
     volumes:
       - ./db_data:/var/lib/postgresql/data
-    networks:
-      - odoo_network
-
 
   # nginx:
   #   image: nginx:latest
@@ -58,6 +53,3 @@ volumes:
   odoo_data:
   odoo_custom_addons:
   db_data:
-
-networks:
-  odoo_network:
