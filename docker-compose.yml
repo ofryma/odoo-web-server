@@ -37,6 +37,7 @@ services:
     image: nginx:latest
     depends_on:
       - odoo
+    restart: always
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot/conf:/etc/letsencrypt
