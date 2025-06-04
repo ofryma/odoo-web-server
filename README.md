@@ -59,8 +59,56 @@ Clone this repo and run the docker compose file.
 sudo yum install python3-pip -y
 sudo pip3 install certbot
 ```
+2. Set the nginx config file to:
+```
+server {
+    listen 80;
+    server_name localhost;
 
-2. Run the command:
+    location /.well-known/acme-challenge/ {
+        alias /var/www/certbot/.well-known/acme-challenge/;
+    }
+}
+```
+
+> To test this nginx config, create a file and try accessing it.
+
+3. Run the command:
 ```sh
-sudo certbot certonly --webroot -w www/certbot -d tech19ws.moon.com
+sudo certbot certonly --webroot -w www/certbot -d <your.domain.name>
+```
+
+4. Update the nginx config file:
+```
+server {
+    listen 80;
+    server_name tech19ws.mooo.com;
+
+    # Redirect all HTTP traffic to HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name tech19ws.mooo.com;
+
+    ssl_certificate /etc/letsencrypt/live/tech19ws.mooo.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tech19ws.mooo.com/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        proxy_pass http://odoo:8069;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
 ```
