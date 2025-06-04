@@ -35,6 +35,7 @@ services:
 
   nginx:
     image: nginx:latest
+    container_name: nginx
     depends_on:
       - odoo
     restart: always
