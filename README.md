@@ -112,3 +112,14 @@ server {
     }
 }
 ```
+
+### Auto-Renewal
+1. Open the crontab:
+```
+sudo crontab -e
+```
+
+2. Add this line:
+```
+0 3 * * * /usr/bin/certbot renew --quiet --post-hook "docker exec <nginx-container-name> nginx -s reload"
+```
