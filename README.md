@@ -62,5 +62,5 @@ sudo pip3 install certbot
 
 2. Run the command:
 ```sh
-sudo certbot certonly --standalone -d tech19ws.moon.com
+sudo certbot certonly --webroot -w www/certbot -d tech19ws.moon.com
 ```
