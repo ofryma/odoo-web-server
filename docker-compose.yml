@@ -41,7 +41,7 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./www/certbot:/var/www/certbot
     ports:
       - "80:80"
       - "443:443"
