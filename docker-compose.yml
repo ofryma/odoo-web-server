@@ -39,8 +39,8 @@ services:
       - odoo
     restart: always
     volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certbot/conf:/etc/letsencrypt
       - ./www/certbot:/var/www/certbot
     ports:
       - "80:80"
