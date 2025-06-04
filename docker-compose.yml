@@ -41,7 +41,7 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./www/certbot:/var/www/certbot
+      - ./www/certbot/.well-known/acme-challenge:/var/www/certbot/.well-known/acme-challenge
     ports:
       - "80:80"
       - "443:443"
