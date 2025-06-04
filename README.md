@@ -90,7 +90,7 @@ server {
     }
 
     location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
+        alias /var/www/certbot/.well-known/acme-challenge/;
     }
 }
 
