@@ -54,7 +54,13 @@ Clone this repo and run the docker compose file.
 
 ## Get SSL Certificate
 
+1. Install **Certbot**
+```sh
+sudo yum install python3-pip -y
+sudo pip3 install certbot
 ```
-docker compose up -d
-docker run --rm -v "$(pwd)/certbot/conf:/etc/letsencrypt" -v "$(pwd)/certbot/www:/var/www/certbot" certbot/certbot certonly --webroot -w /var/www/certbot -d tech19ws.moon.com --email tech.19@tech-19.com --agree-tos --no-eff-email
+
+2. Run the command:
+```sh
+sudo certbot certonly --standalone -d tech19ws.moon.com
 ```
